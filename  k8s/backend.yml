@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: byxannax/backend-exam:latest # Reemplaza con tu imagen en Docker Hub
+          image: byxannax/backend-exam:latest
           env:
             - name: NODE_ENV
               value: "development"

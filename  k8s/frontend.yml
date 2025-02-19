@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: byxannax/frontend-exam:latest # Usa tu imagen de Docker Hub
+          image: byxannax/frontend-exam:latest
           env:
             - name: NEXT_PUBLIC_API_URL
               value: "http://backend-service:3000"
