@@ -1,0 +1,44 @@
+version: '3.8'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  backend-exam:
+    build: ./backend-exam
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./backend-exam:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      DATABASE_HOST: postgres-db
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: exam_db
+      SECRET_KEY_JWT: secret_key
+    depends_on:
+      - postgres-db
+    command: sh -c "npm install && npm run start:dev"
+    networks:
+      - app-network
+
+  postgres-db:
+    image: postgres:15
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: exam_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
